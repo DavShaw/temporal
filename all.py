@@ -217,6 +217,9 @@ ax.set_ylim(yLimits)
 ax.plot(negativesLineX, negativesLineY, 'r')
 ax.plot(positivesLineX, positivesLineY, 'g')
 ax.scatter(chargesCoordsX, chargesCoordsY)
+text = ax.text(
+    0.05, 0.9, '', transform=ax.transAxes, ha='left', fontsize=10
+)
 
 # Definir posición inicial del objeto animado
 current_position = puntualChargeCoords[1]
@@ -224,13 +227,18 @@ current_position = puntualChargeCoords[1]
 positionFunction = lambda s0, a, t: s0 + (1/2) * -a * t * t
 velocityFunction = lambda a, t: -a * t
 
+
+
 # Función de animación
 def animate(frame):
+  delta = (0.2)*(frame)
   secound = frame
   global current_position
-  current_position -= frame
+  current_position -= delta
+  print(current_position)
   point = ax.scatter(puntualChargeCoords[0], current_position, color='blue')
-  return point, 
+  text.set_text(f"Current position: {current_position:.2f}")
+  return point, text
 
 
 # Crear la animación con intervalo de tiempo correcto
